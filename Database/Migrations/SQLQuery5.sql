@@ -37,4 +37,24 @@ Create table Exercicios (
 	series int not null,
 	repeticao int not null,
 	observacoes varchar(100) null
-)
+);
+
+Create table FichaExercico (
+	id int Identity(1,1) Primary Key,
+	idFicha int Foreign Key references FichasTreino(id),
+	idExercicio int Foreign Key references Exercicios(id)
+);
+
+Create table AulasColetivas (
+	id int Identity(1,1) Primary Key,
+	modularidade varchar(30) Check(modularidade in ('Pilates', 'Yoga', 'Spinning', 'Funcional')) not null,
+	dia datetime2 not null,
+	capaxidadeMaxima int not null,
+	idInstrutor int not null Foreign Key references Instrutores(id)
+);
+
+Create table Participar(
+	id int Identity(1,1) Primary Key,
+	idAula int not null Foreign Key references AulasColetivas(id),
+	idAluno int not null Foreign Key references Alunos(id)
+);
